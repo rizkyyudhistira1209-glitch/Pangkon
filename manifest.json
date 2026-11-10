@@ -1,0 +1,15 @@
+{
+  "name": "Pelaksana Konstruksi",
+  "short_name": "Konstruksi",
+  "description": "Laporan harian, anggaran pelaksanaan, dan kalkulator mix design beton.",
+  "lang": "id",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#26323D",
+  "theme_color": "#26323D",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

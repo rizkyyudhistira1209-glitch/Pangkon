@@ -1,0 +1,13 @@
+/* print.css - Cetak laporan (A4) */
+@page { size: A4; margin: 12mm; }
+:root { --arang: #000; --beton: #fff; --putih: #fff; --garis: #888; --baja: #fff; }
+body { background: #fff; color: #000; font-size: 11pt; }
+.tidak-cetak, .tombol, details { display: none !important; }
+.header { background: #fff; color: #000; border-bottom: 2px solid #000; }
+.header h1 { color: #000; }
+.header a { display: none; }
+.bagian { border: 1px solid #888; break-inside: avoid; }
+.pekerjaan { border: 1px solid #bbb; break-inside: avoid; }
+input, select, textarea { border: none; border-bottom: 1px solid #bbb; border-radius: 0; min-height: 0; padding: 2px 4px; background: transparent; color: #000; appearance: none; -webkit-appearance: none; }
+.sorot { background: #fff; color: #000; border: 2px solid #000; }
+th { background: #eee; color: #000; }

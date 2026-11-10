@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#26323D">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <title>Pengaturan Harga</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .sorot { background: var(--kuning); color: #1B1F23; border: 3px solid #1B1F23; border-radius: var(--jari-jari); padding: 12px 16px; font-weight: 800; }
+    .aksi { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+    .aksi .tombol { flex: 1 1 200px; }
+    .info { font-weight: 800; color: var(--aman); }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="wadah">
+      <a class="kembali" href="index.html">Beranda</a>
+      <h1>Pengaturan Harga</h1>
+    </div>
+  </header>
+
+  <main class="wadah">
+    <p class="sorot">Harga bawaan hanya contoh. Isi sesuai harga di daerah dan proyek Anda.</p>
+
+    <section class="bagian">
+      <h2>Material</h2>
+      <p class="bantuan">Pasir dan kerikil dihitung per m&sup3; (kondisi gembur), semen per sak.</p>
+      <div id="g-material"></div>
+    </section>
+
+    <section class="bagian">
+      <h2>Upah tenaga kerja (per hari)</h2>
+      <div id="g-upah"></div>
+    </section>
+
+    <section class="bagian">
+      <h2>Sewa alat (per hari)</h2>
+      <div id="g-alat"></div>
+    </section>
+
+    <section class="bagian">
+      <h2>Semen dan ember</h2>
+      <div class="baris dua">
+        <div>
+          <label for="sakKg">Berat 1 sak semen (kg)</label>
+          <input id="sakKg" type="text" inputmode="decimal">
+          <p class="bantuan">Umumnya 40 atau 50 kg. Harga semen di atas adalah harga per sak ini.</p>
+        </div>
+        <div>
+          <label for="volEmber">Volume 1 ember (liter)</label>
+          <input id="volEmber" type="text" inputmode="decimal">
+        </div>
+      </div>
+    </section>
+
+    <p class="galat" id="galat" role="alert"></p>
+    <p class="info" id="info" role="status"></p>
+    <div class="aksi">
+      <button class="tombol" type="button" id="btnSimpan">Simpan harga</button>
+      <button class="tombol bahaya" type="button" id="btnReset">Kembalikan ke harga bawaan</button>
+    </div>
+    <p class="bantuan">Harga baru berlaku untuk laporan dan perhitungan berikutnya. Laporan yang sudah tersimpan tetap memakai harga saat laporan itu dibuat.</p>
+  </main>
+
+  <script src="js/harga.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/pengaturan.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+</html>

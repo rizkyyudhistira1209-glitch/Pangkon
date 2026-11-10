@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#26323D">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <title>Kalkulator Mix Design Beton</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    details.bagian summary { font-weight: 800; font-size: 1.2rem; cursor: pointer; min-height: var(--sentuh); display: flex; align-items: center; }
+    .sorot { background: var(--kuning); color: #1B1F23; border: 3px solid #1B1F23; border-radius: var(--jari-jari); padding: 12px 16px; font-weight: 800; font-size: 1.25rem; }
+    .catatan { border-left: 6px solid var(--kuning); padding: 4px 12px; margin: 12px 0; }
+    .pekerjaan { border: 2px solid var(--garis); border-radius: var(--jari-jari); padding: 12px; margin: 12px 0; }
+    .pekerjaan .kisi { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    .pekerjaan .v-hasil { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 12px 0 0; font-weight: 800; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="wadah">
+      <a class="kembali" href="index.html">Beranda</a>
+      <h1>Kalkulator Mix Design Beton</h1>
+    </div>
+  </header>
+
+  <main class="wadah">
+    <section class="bagian">
+      <h2>1. Mutu dan kondisi pekerjaan</h2>
+
+      <label id="lblSatuan">Satuan mutu</label>
+      <div class="pilihan" role="radiogroup" aria-labelledby="lblSatuan">
+        <input type="radio" name="satuan" id="satFc" value="fc" checked><label for="satFc">f'c (MPa)</label>
+        <input type="radio" name="satuan" id="satK" value="K"><label for="satK">K (kg/cm²)</label>
+      </div>
+
+      <label for="mutu" id="lblMutu">Mutu beton f'c (MPa)</label>
+      <input id="mutu" type="text" inputmode="decimal" value="20,75">
+      <p class="bantuan" id="ketMutu"></p>
+
+      <div class="baris dua">
+        <div>
+          <label for="slump">Jenis pekerjaan (slump)</label>
+          <select id="slump">
+            <option value="7.5">Pondasi, pelat lantai (slump 2,5–7,5 cm)</option>
+            <option value="10" selected>Kolom, balok, dinding (slump 2,5–10 cm)</option>
+            <option value="15">Pompa / tulangan rapat (slump 10–15 cm)</option>
+          </select>
+        </div>
+        <div>
+          <label for="ukuran">Ukuran maksimum kerikil</label>
+          <select id="ukuran">
+            <option value="10">10 mm</option>
+            <option value="12.5">12,5 mm</option>
+            <option value="19" selected>19 mm (split 1/2 - 2/3)</option>
+            <option value="25">25 mm</option>
+            <option value="37.5">37,5 mm</option>
+            <option value="50">50 mm</option>
+          </select>
+        </div>
+        <div>
+          <label for="jenis">Jenis kerikil</label>
+          <select id="jenis">
+            <option value="pecah" selected>Batu pecah (split)</option>
+            <option value="alam">Kerikil alam (bulat)</option>
+          </select>
+        </div>
+        <div>
+          <label for="paparan">Kondisi paparan</label>
+          <select id="paparan">
+            <option value="0">Normal (di dalam / kering)</option>
+            <option value="0.5">Basah / terkena air (FAS maks 0,50)</option>
+            <option value="0.45">Air laut / sulfat (FAS maks 0,45)</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="sdev">Standar deviasi mutu (MPa), kosongkan jika tidak ada data</label>
+      <input id="sdev" type="text" inputmode="decimal" placeholder="Kosong = pakai tabel SNI 7656:2012">
+    </section>
+
+    <section class="bagian">
+      <h2>2. Volume beton yang dibutuhkan</h2>
+      <p class="bantuan">Masukkan dimensi tiap pekerjaan. Kolom dan balok memakai cm untuk penampang dan meter untuk panjang atau tinggi.</p>
+      <div id="daftarVol"></div>
+      <button class="tombol sekunder" type="button" id="btnTambah">Tambah pekerjaan</button>
+      <label for="waste">Cadangan kehilangan / tumpah (%)</label>
+      <input id="waste" type="text" inputmode="decimal" value="5">
+      <p class="sorot" id="totalVol" style="margin-top:16px">Volume dibutuhkan: 0 m³</p>
+    </section>
+
+    <details class="bagian">
+      <summary>3. Data agregat (ubah sesuai hasil uji material)</summary>
+      <div class="baris dua">
+        <div><label for="fm">Modulus kehalusan pasir</label><input id="fm" type="text" inputmode="decimal" value="2,8"></div>
+        <div><label for="bi">Berat isi padat kerikil (kg/m³)</label><input id="bi" type="text" inputmode="decimal" value="1600"></div>
+        <div><label for="bjPasir">Berat jenis pasir (SSD)</label><input id="bjPasir" type="text" inputmode="decimal" value="2,6"></div>
+        <div><label for="bjKerikil">Berat jenis kerikil (SSD)</label><input id="bjKerikil" type="text" inputmode="decimal" value="2,65"></div>
+        <div><label for="absPasir">Penyerapan pasir (%)</label><input id="absPasir" type="text" inputmode="decimal" value="2"></div>
+        <div><label for="absKerikil">Penyerapan kerikil (%)</label><input id="absKerikil" type="text" inputmode="decimal" value="1,5"></div>
+        <div><label for="kaPasir">Kadar air pasir di lapangan (%)</label><input id="kaPasir" type="text" inputmode="decimal" value="4"></div>
+        <div><label for="kaKerikil">Kadar air kerikil di lapangan (%)</label><input id="kaKerikil" type="text" inputmode="decimal" value="1"></div>
+      </div>
+      <p class="bantuan">Kadar air lapangan dipakai untuk koreksi air dan berat agregat.</p>
+    </details>
+
+    <details class="bagian">
+      <summary>4. Ember dan campuran</summary>
+      <div class="baris dua">
+        <div><label for="volEmber">Volume 1 ember (liter)</label><input id="volEmber" type="text" inputmode="decimal"></div>
+        <div><label for="jmlSak">Semen per campuran (sak)</label><input id="jmlSak" type="text" inputmode="decimal" value="1"></div>
+        <div><label for="biPasir">Berat isi gembur pasir (kg/liter)</label><input id="biPasir" type="text" inputmode="decimal"></div>
+        <div><label for="biKerikil">Berat isi gembur kerikil (kg/liter)</label><input id="biKerikil" type="text" inputmode="decimal"></div>
+      </div>
+      <p class="bantuan">Pasir basah mengembang, jadi berat isi gembur sebaiknya ditimbang sendiri di proyek: isi ember penuh tanpa dipadatkan, timbang, bagi dengan volume ember.</p>
+    </details>
+
+    <button class="tombol" type="button" id="btnHitung" style="width:100%">Hitung campuran</button>
+    <p class="galat" id="galat" role="alert"></p>
+
+    <section class="bagian sembunyi" id="hasil" aria-live="polite"></section>
+  </main>
+
+  <script src="js/harga.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/mixdesign.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#26323D">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <title>Laporan Harian &amp; Anggaran Pelaksanaan</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/laporan.css">
+  <link rel="stylesheet" href="css/print.css" media="print">
+</head>
+<body>
+  <header class="header">
+    <div class="wadah">
+      <a class="kembali tidak-cetak" href="index.html">Beranda</a>
+      <h1>Laporan Harian &amp; Anggaran</h1>
+    </div>
+  </header>
+
+  <main class="wadah">
+    <section class="bagian">
+      <h2>1. Identitas proyek</h2>
+      <div class="baris dua">
+        <div><label for="nama">Nama proyek</label><input id="nama" type="text"></div>
+        <div><label for="lokasi">Lokasi</label><input id="lokasi" type="text"></div>
+        <div><label for="tanggal">Tanggal</label><input id="tanggal" type="date"></div>
+        <div><label for="cuaca">Cuaca</label>
+          <select id="cuaca"><option>Cerah</option><option>Berawan</option><option>Hujan ringan</option><option>Hujan deras</option></select></div>
+        <div><label for="pelaksana">Pelaksana</label><input id="pelaksana" type="text"></div>
+        <div><label for="progresKum">Progres kumulatif proyek (%)</label><input id="progresKum" type="text" inputmode="decimal"></div>
+      </div>
+    </section>
+
+    <section class="bagian">
+      <h2>2. Tenaga kerja</h2>
+      <div id="list-tenaga"></div>
+      <button class="tombol sekunder tidak-cetak" type="button" data-tambah="tenaga">Tambah tenaga kerja</button>
+    </section>
+
+    <section class="bagian">
+      <h2>3. Material</h2>
+      <div id="list-material"></div>
+      <button class="tombol sekunder tidak-cetak" type="button" data-tambah="material">Tambah material</button>
+      <div class="tidak-cetak" style="margin-top:16px">
+        <label for="pilihMix">Ambil dari hasil mix design yang tersimpan</label>
+        <select id="pilihMix"></select>
+        <button class="tombol sekunder" type="button" id="btnMix" style="margin-top:8px">Tambah semen, pasir, kerikil dari mix design</button>
+      </div>
+    </section>
+
+    <section class="bagian">
+      <h2>4. Peralatan</h2>
+      <div id="list-alat"></div>
+      <button class="tombol sekunder tidak-cetak" type="button" data-tambah="alat">Tambah peralatan</button>
+    </section>
+
+    <section class="bagian">
+      <h2>5. Progres pekerjaan hari ini</h2>
+      <div id="list-progres"></div>
+      <button class="tombol sekunder tidak-cetak" type="button" id="btnProgres">Tambah uraian pekerjaan</button>
+      <label for="catatan">Catatan / kendala</label>
+      <textarea id="catatan"></textarea>
+    </section>
+
+    <section class="bagian">
+      <h2>6. Anggaran pelaksanaan</h2>
+      <div class="baris dua">
+        <div><label for="anggaranHari">Rencana biaya hari ini (Rp)</label><input id="anggaranHari" type="text" inputmode="decimal"></div>
+        <div><label for="anggaranTotal">Total anggaran pelaksanaan proyek (Rp)</label><input id="anggaranTotal" type="text" inputmode="decimal"></div>
+      </div>
+      <div id="ringkasan" style="margin-top:16px" aria-live="polite"></div>
+    </section>
+
+    <p class="galat tidak-cetak" id="galat" role="alert"></p>
+    <div class="aksi tidak-cetak">
+      <button class="tombol" type="button" id="btnSimpan">Simpan laporan</button>
+      <button class="tombol sekunder" type="button" id="btnCetak">Cetak / simpan PDF</button>
+      <button class="tombol sekunder" type="button" id="btnBaru">Laporan baru</button>
+    </div>
+
+    <section class="bagian tidak-cetak">
+      <h2>Laporan tersimpan</h2>
+      <div id="daftar"></div>
+    </section>
+  </main>
+
+  <script src="js/harga.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/laporan.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+</html>

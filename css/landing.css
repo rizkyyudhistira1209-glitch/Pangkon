@@ -1,0 +1,64 @@
+/* landing.css - Khusus index.html */
+
+.beranda { min-height: 100vh; display: flex; flex-direction: column; }
+
+.beranda .atas {
+  background: var(--baja);
+  color: #fff;
+  border-bottom: 8px solid var(--kuning);
+  padding: 24px 16px;
+}
+.beranda .atas .wadah { padding: 0 16px; }
+.beranda .atas h1 { font-size: 2rem; margin: 0 0 4px; color: #fff; }
+.beranda .atas p { margin: 0; font-size: 1.15rem; }
+
+.menu {
+  flex: 1;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  align-content: start;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+@media (min-width: 760px) {
+  .menu { grid-template-columns: 1fr 1fr; }
+}
+
+.menu-besar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 220px;
+  padding: 24px;
+  text-decoration: none;
+  color: #1B1F23;
+  background: var(--kuning);
+  border: 4px solid #1B1F23;
+  border-radius: 14px;
+  box-shadow: 8px 8px 0 #1B1F23;
+}
+.menu-besar:hover { background: var(--kuning-tua); }
+.menu-besar:active { transform: translate(4px, 4px); box-shadow: 4px 4px 0 #1B1F23; }
+.menu-besar:focus-visible { outline: 5px solid var(--arang); outline-offset: 4px; }
+
+.menu-besar .judul { font-size: 1.9rem; font-weight: 900; line-height: 1.15; }
+.menu-besar .ket { font-size: 1.15rem; font-weight: 600; }
+.menu-besar .info {
+  font-size: 1.1rem; font-weight: 800;
+  padding-top: 12px; border-top: 3px solid #1B1F23;
+}
+
+/* Pada mode gelap, bayangan tombol memakai warna terang agar tetap terlihat */
+@media (prefers-color-scheme: dark) {
+  .menu-besar { border-color: #F4F2ED; box-shadow: 8px 8px 0 #F4F2ED; }
+  .menu-besar:active { box-shadow: 4px 4px 0 #F4F2ED; }
+}
+
+.bawah {
+  padding: 16px;
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;
+  border-top: 2px solid var(--garis);
+}
+.bawah .peringatan { margin: 0; font-weight: 700; color: var(--bahaya); }
