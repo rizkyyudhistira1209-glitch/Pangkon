@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#26323D">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <title>Aplikasi Pelaksana Konstruksi</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body class="beranda">
+
+  <header class="atas">
+    <div class="wadah">
+      <h1>Pelaksana Konstruksi</h1>
+      <p id="tanggal">Memuat tanggal...</p>
+    </div>
+  </header>
+
+  <main class="wadah menu">
+    <a class="menu-besar" href="laporan.html">
+      <span class="judul">Laporan Harian &amp; Anggaran Pelaksanaan</span>
+      <span class="ket">Catat tenaga kerja, material, alat, dan progres hari ini.</span>
+      <span class="info" id="infoLaporan">Memuat...</span>
+    </a>
+
+    <a class="menu-besar" href="mixdesign.html">
+      <span class="judul">Kalkulator Mix Design Beton</span>
+      <span class="ket">Hitung campuran dari mutu f'c atau K, hasil dalam ember.</span>
+      <span class="info" id="infoMix">Ember 10 liter</span>
+    </a>
+
+    <p style="grid-column: 1 / -1; margin: 0; border-left: 6px solid var(--kuning); padding: 4px 12px;">
+      Hasil pada alat bantu ini adalah perkiraan.
+    </p>
+  </main>
+
+  <footer class="bawah">
+    <p class="peringatan sembunyi" id="peringatan">
+      Penyimpanan browser tidak tersedia. Data tidak akan tersimpan.
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <a class="tombol sekunder" href="harga.html">Pengaturan harga</a>
+      <button class="tombol sekunder" type="button" id="btnCadangan">Simpan cadangan data</button>
+      <button class="tombol sekunder" type="button" id="btnPulihkan">Pulihkan dari cadangan</button>
+      <input type="file" id="berkasCadangan" accept="application/json,.json" class="sembunyi">
+    </div>
+  </footer>
+
+  <script src="js/harga.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/util.js"></script>
+  <script>
+    (function () {
+      document.getElementById("tanggal").textContent = Util.formatTanggalID();
+
+      if (!Penyimpanan.tersedia()) {
+        document.getElementById("peringatan").classList.remove("sembunyi");
+      }
+
+      var jumlah = Penyimpanan.daftar("laporan_").length;
+      document.getElementById("infoLaporan").textContent =
+        jumlah === 0 ? "Belum ada laporan tersimpan" : jumlah + " laporan tersimpan";
+
+      var p = Penyimpanan.ambilPengaturan();
+      document.getElementById("infoMix").textContent =
+        "Ember " + Util.formatAngka(p.volumeEmber, 1) + " liter";
+
+      document.getElementById("btnCadangan").addEventListener("click", function () {
+        Penyimpanan.ekspor();
+      });
+
+      var berkas = document.getElementById("berkasCadangan");
+      document.getElementById("btnPulihkan").addEventListener("click", function () { berkas.click(); });
+      berkas.addEventListener("change", function () {
+        if (!berkas.files.length) return;
+        Penyimpanan.impor(berkas.files[0]).then(function (n) {
+          alert(n + " data berhasil dipulihkan.");
+          location.reload();
+        }).catch(function (e) { alert("Gagal memulihkan: " + e.message); });
+      });
+    })();
+  </script>
+  <script src="js/pwa.js"></script>
+</body>
+</html>
